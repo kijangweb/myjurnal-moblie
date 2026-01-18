@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Sniper Journal - Modern Pro v18</title>
+    <title>Sniper Journal - v18.1 Mobile Anti-BEP</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -16,42 +16,39 @@
         body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); padding: 12px; line-height: 1.4; letter-spacing: -0.01em; }
         
         .header { margin: 10px 5px 20px; display: flex; justify-content: space-between; align-items: center; }
-        .header h1 { font-size: 1.25rem; font-weight: 800; letter-spacing: -0.03em; }
+        .header h1 { font-size: 1.2rem; font-weight: 800; letter-spacing: -0.03em; }
         #healthBadge { font-size: 0.6rem; padding: 4px 10px; border-radius: 50px; font-weight: 800; text-transform: uppercase; }
 
-        /* Dashboard 2-Column Grid */
+        /* Dashboard 2-Column */
         .stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 15px; }
         .stat-card { background: white; padding: 14px; border-radius: var(--radius-md); border: 1px solid var(--border); box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
         .stat-card.full { grid-column: span 2; background: var(--text); color: white; border: none; text-align: center; }
         .stat-card small { font-size: 0.55rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; display: block; margin-bottom: 4px; }
-        .stat-card.full small { color: rgba(255,255,255,0.6); }
         .stat-card span { display: block; font-size: 1.1rem; font-weight: 800; }
 
         .panel { background: var(--surface); border-radius: var(--radius-md); border: 1px solid var(--border); padding: 16px; margin-bottom: 12px; }
         .panel-title { font-size: 0.7rem; font-weight: 800; text-transform: uppercase; color: var(--text-muted); margin-bottom: 15px; display: flex; align-items: center; gap: 8px; }
 
-        /* Goal & Estimation */
+        /* Achievement */
         .goal-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 12px; }
         .goal-pct { font-size: 1.8rem; font-weight: 900; color: var(--text); }
         .goal-est { text-align: right; line-height: 1.2; }
-        .goal-est small { font-size: 0.55rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; }
         .goal-est p { font-size: 0.7rem; font-weight: 800; color: var(--brand); }
         .progress-container { height: 8px; background: #f1f5f9; border-radius: 10px; overflow: hidden; }
         .progress-fill { height: 100%; background: linear-gradient(90deg, var(--brand), #a5b4fc); width: 0%; transition: 1.2s cubic-bezier(0.22, 1, 0.36, 1); }
 
         /* Input Grid */
         .input-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        .input-group { margin-bottom: 12px; }
-        .input-group label { display: block; font-size: 0.6rem; font-weight: 800; margin-bottom: 5px; color: var(--text-muted); text-transform: uppercase; }
-        .input-group input { width: 100%; padding: 10px; border-radius: 10px; border: 1px solid var(--border); font-weight: 700; font-size: 0.85rem; background: #fcfdfe; transition: 0.2s; }
-        .input-group input:focus { border-color: var(--brand); outline: none; box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1); }
+        .input-group { margin-bottom: 10px; }
+        .input-group label { display: block; font-size: 0.6rem; font-weight: 800; margin-bottom: 4px; color: var(--text-muted); text-transform: uppercase; }
+        .input-group input { width: 100%; padding: 10px; border-radius: 10px; border: 1px solid var(--border); font-weight: 700; font-size: 0.85rem; background: #fcfdfe; }
 
         /* Gear UI */
-        .gear-widget { background: #eff6ff; border: 1px solid #dbeafe; padding: 14px; border-radius: 14px; display: flex; align-items: center; gap: 12px; margin-bottom: 15px; }
+        .gear-widget { background: #eff6ff; border: 1px solid #dbeafe; padding: 14px; border-radius: 14px; display: flex; align-items: center; gap: 12px; margin-bottom: 15px; cursor: pointer; }
         .gear-widget input { width: 20px; height: 20px; accent-color: var(--brand); }
         .gear-widget strong { font-size: 0.75rem; font-weight: 700; color: var(--brand-dark); }
 
-        /* Risk Advisor Grid */
+        /* Risk Advisor 2-Column */
         .adv-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
         .adv-item { background: #f8fafc; border: 1px solid var(--border); padding: 12px; border-radius: 14px; }
         .adv-item.full { grid-column: span 2; border-left: 4px solid var(--brand); }
@@ -59,33 +56,31 @@
         .adv-item .val { font-size: 1rem; font-weight: 800; color: var(--text); }
         .adv-item .desc { font-size: 0.55rem; color: var(--text-muted); margin-top: 2px; }
 
-        /* Consistent Table Layout */
+        /* Table */
         .table-wrap { background: white; border-radius: var(--radius-md); border: 1px solid var(--border); overflow-x: auto; }
-        table { width: 700px; border-collapse: collapse; table-layout: fixed; }
+        table { width: 720px; border-collapse: collapse; table-layout: fixed; }
         th { background: #f8fafc; padding: 12px 10px; font-size: 0.6rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase; border-bottom: 1px solid var(--border); text-align: left; }
         td { padding: 14px 10px; border-bottom: 1px solid #f8fafc; vertical-align: middle; font-size: 0.8rem; }
         
-        /* Column Widths */
         .col-day { width: 45px; }
-        .col-log { width: 300px; }
+        .col-log { width: 320px; }
         .col-pips { width: 90px; }
         .col-profit { width: 110px; }
         .col-pct { width: 75px; }
 
         .phase-header { background: #f1f5f9; font-size: 0.65rem; font-weight: 900; color: var(--brand); padding: 10px; text-transform: uppercase; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
 
-        /* Execution Slot Consistent */
+        /* Slots */
         .slot-pill { background: #f8fafc; border: 1px solid var(--border); padding: 6px 8px; border-radius: 8px; display: inline-flex; align-items: center; gap: 6px; margin: 2px; }
-        .slot-pill small { font-weight: 800; font-size: 0.6rem; color: var(--text-muted); }
         select { border: 1px solid var(--border); padding: 3px 5px; font-weight: 700; font-size: 0.7rem; border-radius: 5px; background: white; outline: none; }
         
         .badge { font-size: 0.55rem; font-weight: 800; padding: 5px 10px; border-radius: 6px; text-transform: uppercase; display: inline-block; }
         .b-win { background: #dcfce7; color: #15803d; }
         .b-loss { background: #fee2e2; color: #b91c1c; }
+        .b-safe { background: #e0f2fe; color: #0369a1; border: 1px solid #bae6fd; }
 
         .btn-add { background: #eff6ff; color: var(--brand); border: 1px dashed var(--brand); padding: 6px 12px; border-radius: 8px; font-weight: 800; font-size: 0.6rem; cursor: pointer; }
         .btn-primary { width: 100%; padding: 14px; border: none; border-radius: 14px; font-weight: 800; font-size: 0.8rem; cursor: pointer; background: var(--text); color: white; transition: 0.2s; }
-        .btn-json { background: var(--brand); color: white; padding: 12px; border-radius: 12px; font-weight: 800; border: none; font-size: 0.7rem; }
 
         #mcOverlay { display: none; position: fixed; inset: 0; background: rgba(15, 23, 42, 0.98); z-index: 9999; flex-direction: column; align-items: center; justify-content: center; color: white; padding: 30px; text-align: center; }
     </style>
@@ -95,12 +90,12 @@
 <div id="mcOverlay">
     <h1 style="font-size: 2.5rem; font-weight: 900; color: var(--danger); margin-bottom: 10px;">MISSION FAILED</h1>
     <p style="margin-bottom: 30px; opacity: 0.8; font-size: 0.9rem;">ACCOUNT INTEGRITY COMPROMISED</p>
-    <button onclick="hardReset()" class="btn-primary" style="background: var(--brand);">RESTART JOURNEY</button>
+    <button onclick="hardReset()" class="btn-primary" style="background: var(--brand); max-width: 250px;">RESTART JOURNEY</button>
 </div>
 
 <div class="container">
     <header class="header">
-        <h1>SNIPER <span style="color:var(--brand)">MODERN PRO</span></h1>
+        <h1>SNIPER <span style="color:var(--brand)">STABLE v18.1</span></h1>
         <div id="healthBadge">ANALYZING</div>
     </header>
 
@@ -114,45 +109,37 @@
 
     <section class="panel">
         <div class="goal-header">
-            <div>
-                <small style="font-weight:800; color:var(--text-muted); text-transform:uppercase; font-size:0.55rem;">Journey Achievement</small>
-                <div id="resAchiev" class="goal-pct">0.0%</div>
-            </div>
-            <div class="goal-est">
-                <small>ESTIMATION TIME</small>
-                <p id="resEst">Min. 5 Days Data</p>
-            </div>
+            <div><small style="font-weight:800; color:var(--text-muted); font-size:0.55rem;">ACHIEVEMENT</small><div id="resAchiev" class="goal-pct">0.0%</div></div>
+            <div class="goal-est"><small>ESTIMATION</small><p id="resEst">Min. 5 Days Data</p></div>
         </div>
-        <div class="progress-container">
-            <div id="goalBar" class="progress-fill"></div>
-        </div>
+        <div class="progress-container"><div id="goalBar" class="progress-fill"></div></div>
     </section>
 
     <section class="panel">
         <details>
-            <summary class="panel-title">⚙️ Risk Architecture (Tap to Edit)</summary>
+            <summary class="panel-title">⚙️ Risk Setup (Tap to Edit)</summary>
             <div class="gear-widget" onclick="toggleGear()">
                 <input type="checkbox" id="gear20" checked onclick="event.stopPropagation(); refresh()">
-                <div><strong>20% PIPS CONSISTENCY GEAR</strong></div>
+                <div><strong>20% PIPS GEAR LOCK</strong></div>
             </div>
             <div class="input-grid">
-                <div class="input-group"><label>Initial Capital</label><input type="number" id="cfgCap" value="1000" onchange="refresh()"></div>
-                <div class="input-group"><label>Target Goal</label><input type="number" id="cfgGoal" value="2000" onchange="refresh()"></div>
-                <div class="input-group" style="grid-column: span 2;"><label>Standard Trade Lot</label><input type="number" id="cfgLot" value="0.01" step="0.01" onchange="refresh()"></div>
+                <div class="input-group"><label>Capital</label><input type="number" id="cfgCap" value="1000" onchange="refresh()"></div>
+                <div class="input-group"><label>Goal</label><input type="number" id="cfgGoal" value="2000" onchange="refresh()"></div>
+                <div class="input-group" style="grid-column: span 2;"><label>Standard Lot</label><input type="number" id="cfgLot" value="0.01" step="0.01" onchange="refresh()"></div>
                 <div class="input-group"><label>Target Pips</label><input type="number" id="cfgTP" value="100" onchange="refresh()"></div>
-                <div class="input-group"><label>Risk Pips (SL)</label><input type="number" id="cfgSL" value="50" onchange="refresh()"></div>
+                <div class="input-group"><label>SL Pips</label><input type="number" id="cfgSL" value="50" onchange="refresh()"></div>
                 <div class="input-group" style="grid-column: span 2;"><label>Daily Risk %</label><input type="number" id="cfgRiskPct" value="1" onchange="refresh()"></div>
             </div>
             <button onclick="runScanner()" class="btn-primary" style="margin-top:5px;">🔍 SCAN IDEAL SETUP</button>
             <div id="scanRes" style="display:none; margin-top:15px; border-top:1px dashed var(--border); padding-top:12px;">
                 <div class="input-grid">
-                    <div style="background:#f8fafc; border:1px solid var(--border); padding:12px; border-radius:12px; text-align:center;" onclick="calibrate(0.5)">
+                    <div style="background:#f8fafc; border:1px solid var(--border); padding:10px; border-radius:12px; text-align:center;" onclick="calibrate(0.5)">
                         <small style="color:var(--success); font-weight:800; font-size:0.5rem;">CONS. (0.5%)</small>
-                        <div style="font-weight:900; font-size:0.9rem;" id="scLotLow">0.01</div>
+                        <div style="font-weight:900;" id="scLotLow">0.01</div>
                     </div>
-                    <div style="background:#f8fafc; border:1px solid var(--border); padding:12px; border-radius:12px; text-align:center;" onclick="calibrate(1.0)">
+                    <div style="background:#f8fafc; border:1px solid var(--border); padding:10px; border-radius:12px; text-align:center;" onclick="calibrate(1.0)">
                         <small style="color:var(--brand); font-weight:800; font-size:0.5rem;">BAL. (1.0%)</small>
-                        <div style="font-weight:900; font-size:0.9rem;" id="scLotMid">0.02</div>
+                        <div style="font-weight:900;" id="scLotMid">0.02</div>
                     </div>
                 </div>
             </div>
@@ -162,31 +149,11 @@
     <section class="panel" style="background: #fcfdfe; border: 2px solid var(--border);">
         <div class="panel-title" style="color:var(--brand); margin-bottom:12px;">🛡️ Risk Intelligence</div>
         <div class="adv-grid">
-            <div class="adv-item full">
-                <strong>Max Daily Risk Money</strong>
-                <span id="advDaily$" class="val">$0.00</span>
-                <div class="desc">Batas dolar maksimal hilang hari ini</div>
-            </div>
-            <div class="adv-item" id="advLossBox">
-                <strong>Loss Per Trade</strong>
-                <span id="advLoss$" class="val">$0.00</span>
-                <div id="advLossDesc" class="desc">Beban per klik</div>
-            </div>
-            <div class="adv-item" id="advIdealBox">
-                <strong>Ideal Capital</strong>
-                <span id="advIdeal$" class="val">$0.00</span>
-                <div class="desc">2% Safe Standard</div>
-            </div>
-            <div class="adv-item" style="background:#eff6ff; border-color:#dbeafe;">
-                <strong>Profit Project</strong>
-                <span id="advProfit$" class="val">$0.00</span>
-                <div class="desc">Return per TP</div>
-            </div>
-            <div class="adv-item">
-                <strong>Resilience</strong>
-                <span id="advResilience" class="val">0 Trades</span>
-                <div class="desc">Survival depth</div>
-            </div>
+            <div class="adv-item full"><strong>Max Daily Risk</strong><span id="advDaily$" class="val">$0.00</span><div class="desc">Batas dolar hari ini</div></div>
+            <div class="adv-item"><strong>Loss / Trade</strong><span id="advLoss$" class="val">$0.00</span><div id="advLossDesc" class="desc">Beban per klik</div></div>
+            <div class="adv-item"><strong>Ideal Capital</strong><span id="advIdeal$" class="val">$0.00</span><div class="desc">2% Safe Rule</div></div>
+            <div class="adv-item" style="background:#eff6ff;"><strong>Profit Project</strong><span id="advProfit$" class="val">$0.00</span><div class="desc">Return per TP</div></div>
+            <div class="adv-item"><strong>Resilience</strong><span id="advResilience" class="val">0 Trades</span><div class="desc">Survival depth</div></div>
         </div>
     </section>
 
@@ -207,23 +174,23 @@
 
     <section class="panel" style="background: #f0f9ff; margin-top:15px; border-color: #bae6fd;">
         <div class="panel-title" style="color:var(--brand)">💾 Data Vault (JSON)</div>
-        <div class="input-grid" style="grid-template-columns: 1fr 1fr; gap:10px;">
-            <button class="btn-json" onclick="exportJSON()">📤 SAVE</button>
-            <button class="btn-primary" style="font-size:0.7rem; border-radius:12px; padding:0;" onclick="document.getElementById('fileIn').click()">📥 LOAD</button>
+        <div class="input-grid">
+            <button class="btn-primary" style="background:var(--brand); font-size:0.7rem;" onclick="exportJSON()">📤 SAVE</button>
+            <button class="btn-primary" style="font-size:0.7rem;" onclick="document.getElementById('fileIn').click()">📥 LOAD</button>
         </div>
         <input type="file" id="fileIn" style="display:none" accept=".json" onchange="importJSON(this)">
-        <button style="width:100%; margin-top:25px; color:var(--text-muted); font-size:0.6rem; background:none; border:none; text-decoration:underline; font-weight:600;" onclick="hardReset()">Factory Hard Reset</button>
+        <button style="width:100%; margin-top:25px; color:var(--text-muted); font-size:0.6rem; background:none; border:none; text-decoration:underline;" onclick="hardReset()">Factory Hard Reset</button>
     </section>
 </div>
 
 <script>
-    const STORAGE_KEY = 'sniper_modern_pro_v18';
+    const STORAGE_KEY = 'sniper_stable_v18_1';
     function load() { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; }
 
     function exportJSON() {
         const payload = { journal: load(), config: { modal: document.getElementById('cfgCap').value, goal: document.getElementById('cfgGoal').value, lot: document.getElementById('cfgLot').value, tp: document.getElementById('cfgTP').value, sl: document.getElementById('cfgSL').value, risk: document.getElementById('cfgRiskPct').value, gear: document.getElementById('gear20').checked } };
         const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' }));
-        a.download = `Sniper_ModernPro_Backup.json`; a.click();
+        a.download = `SniperJournal_Backup.json`; a.click();
     }
 
     function importJSON(input) {
@@ -236,27 +203,31 @@
                 document.getElementById('cfgSL').value = data.config.sl; document.getElementById('cfgRiskPct').value = data.config.risk;
                 document.getElementById('gear20').checked = data.config.gear;
             }
-            refresh(); alert("Vault System Restored!");
+            refresh(); alert("Vault Restored!");
         }; reader.readAsText(input.files[0]);
     }
 
     function toggleGear() { document.getElementById('gear20').checked = !document.getElementById('gear20').checked; refresh(); }
+    
     function saveAction(day, idx, val) {
         let data = load(); if (!data[day]) data[day] = [];
         if (val === 'cancel') { data[day].splice(idx, 1); if (data[day].length === 0) data[day] = ['pending']; }
         else { data[day][idx] = val; }
         localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); refresh();
     }
+
     function addSlot(day) {
         let data = load(); if (!data[day]) data[day] = ['pending'];
         if (data[day][data[day].length-1] !== 'pending') { data[day].push('pending'); localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); refresh(); }
     }
+
     function runScanner() {
         const cap = parseFloat(document.getElementById('cfgCap').value); const sl = parseInt(document.getElementById('cfgSL').value);
         const getL = (r) => Math.max(0.01, (cap * (r/100)) / (sl * 10)).toFixed(2);
         document.getElementById('scLotLow').innerText = getL(0.5); document.getElementById('scLotMid').innerText = getL(1.0);
         document.getElementById('scanRes').style.display = 'block';
     }
+
     function calibrate(r) {
         const cap = parseFloat(document.getElementById('cfgCap').value); const sl = parseInt(document.getElementById('cfgSL').value);
         document.getElementById('cfgLot').value = Math.max(0.01, (cap * (r/100)) / (sl * 10)).toFixed(2);
@@ -273,18 +244,16 @@
         const gear = document.getElementById('gear20').checked;
 
         const pipVal = lot * 10;
-        const win$ = tp * pipVal;
         const lose$ = sl * pipVal;
         const dailyLimit$ = modal * (rPct/100);
 
-        // Advisor Intelligence Update
-        const idealStd = lose$ / 0.02;
+        // Advisor update
         const exposure = (lose$ / modal) * 100;
         document.getElementById('advDaily$').innerText = `$${dailyLimit$.toFixed(2)}`;
         document.getElementById('advLoss$').innerText = `$${lose$.toFixed(2)}`;
         document.getElementById('advLossDesc').innerText = `Exp: ${exposure.toFixed(1)}%`;
-        document.getElementById('advIdeal$').innerText = `$${idealStd.toFixed(2)}`;
-        document.getElementById('advProfit$').innerText = `$${win$.toFixed(2)}`;
+        document.getElementById('advIdeal$').innerText = `$${(lose$ / 0.02).toFixed(2)}`;
+        document.getElementById('advProfit$').innerText = `$${(tp * pipVal).toFixed(2)}`;
         document.getElementById('advResilience').innerText = `${Math.floor(modal/lose$)} Trades`;
 
         const hB = document.getElementById('healthBadge');
@@ -306,19 +275,32 @@
                 tbody.appendChild(h);
             }
             const dayD = data[d] || ['pending'];
-            let dPr = 0, dPi = 0, last = 'pending', active = false;
+            let dPr = 0, dPi = 0, dLsTotal = 0, last = 'pending', active = false;
             const tr = document.createElement('tr');
             let cell = `<div>`;
+            
             dayD.forEach((st, i) => {
                 last = st; if(st !== 'pending') active = true;
-                if(st==='win') { dPi += tp; dPr += win$; }
-                else if(st==='lose') { dPi -= sl; dPr -= lose$; }
-                cell += `<div class="slot-pill"><small>#${i+1}</small><select onchange="saveAction(${d}, ${i}, this.value)"><option value="pending" ${st==='pending'?'selected':''}>RUN</option><option value="win" ${st==='win'?'selected':''}>WIN</option><option value="lose" ${st==='lose'?'selected' : ''}>LOSE</option><option value="cancel">DEL</option></select></div>`;
+                if(st==='win') { dPi += tp; dPr += (tp * pipVal); }
+                else if(st==='lose') { dPi -= sl; dPr -= lose$; dLsTotal += lose$; }
+                cell += `<div class="slot-pill"><small>#${i+1}</small><select onchange="saveAction(${d}, ${i}, this.value)"><option value="pending" ${st==='pending'?'selected':''}>RUN</option><option value="win" ${st==='win'?'selected':''}>WIN</option><option value="lose" ${st==='lose'?'selected':''}>LOSE</option><option value="cancel">DEL</option></select></div>`;
             });
             if(active) fDays++;
             const dayPipsPct = (dPr/modal*100);
-            if(gear && dayPipsPct >= 20) cell += `<span class="badge b-win">🔒 20% GEAR</span>`;
-            else if(last !== 'pending' && dayD.length < capSlots) cell += `<button onclick="addSlot(${d})" class="btn-add">+ SLOT</button>`;
+            
+            // --- ANTI-BEP & GEAR PROTECTION LOGIC ---
+            if(gear && dayPipsPct >= 20) {
+                cell += `<span class="badge b-win">🔒 20% GEAR</span>`;
+            } else if(last !== 'pending') {
+                // Perlindungan BEP: Jika profit harian > 0 tapi tidak cukup untuk menahan 1 kali SL lagi
+                if(dPr > 0 && dPr <= lose$) {
+                    cell += `<span class="badge b-safe">🛡️ ANTI-BE ACTIVE</span>`;
+                } else if(dLsTotal >= dailyLimit$) {
+                    cell += `<span class="badge b-loss">🛑 RISK LIMIT</span>`;
+                } else if(dayD.length < capSlots) {
+                    cell += `<button onclick="addSlot(${d})" class="btn-add">+ SLOT</button>`;
+                }
+            }
             cell += `</div>`;
 
             tr.innerHTML = `<td><b>D${d}</b></td><td>${cell}</td><td style="font-weight:800; color:${dPi>=0?'var(--success)':'var(--danger)'}">${dPi}</td><td style="font-weight:800; color:${dPr>=0?'var(--success)':'var(--danger)'}">$${dPr.toFixed(2)}</td><td style="font-weight:800; color:${dayPipsPct>=0?'var(--success)':'var(--danger)'}">${dayPipsPct.toFixed(2)}%</td>`;
@@ -327,15 +309,13 @@
         }
 
         const eq = modal + totalP;
-        const totalPipsPct = (totalP/modal*100);
-        const ach = Math.max(0, ((eq - modal) / (goalVal - modal)) * 100);
-        
         document.getElementById('resEquity').innerText = `$${eq.toFixed(2)}`;
-        document.getElementById('resGrowth').innerText = (totalPipsPct >= 0 ? '+' : '') + totalPipsPct.toFixed(2) + "%";
-        document.getElementById('resGrowth').style.color = (totalP >= 0) ? 'var(--success)' : 'var(--danger)';
+        document.getElementById('resGrowth').innerText = (totalP/modal*100).toFixed(2) + "%";
         document.getElementById('resPips').innerText = totalPips;
         document.getElementById('resSlots').innerText = capSlots + " Slots";
         document.getElementById('resSurvival').innerText = Math.floor(modal/lose$) + " Trades";
+        
+        const ach = Math.max(0, ((eq - modal) / (goalVal - modal)) * 100);
         document.getElementById('resAchiev').innerText = ach.toFixed(1) + "%";
         document.getElementById('goalBar').style.width = Math.min(100, ach) + "%";
 
@@ -346,7 +326,7 @@
         document.getElementById('mcOverlay').style.display = (eq < lose$) ? 'flex' : 'none';
     }
 
-    function hardReset() { if(confirm('PERFORM FACTORY RESET? All data will be lost.')) { localStorage.removeItem(STORAGE_KEY); location.reload(); } }
+    function hardReset() { if(confirm('RESET ALL DATA?')) { localStorage.removeItem(STORAGE_KEY); location.reload(); } }
     refresh();
 </script>
 
