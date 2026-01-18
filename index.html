@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Sniper Journal - v17 Mobile Pro</title>
+    <title>Sniper Journal - v17.1 Mobile Pro</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -20,7 +20,7 @@
         .header h1 { font-size: 1.25rem; font-weight: 800; letter-spacing: -0.03em; }
         #healthBadge { font-size: 0.6rem; padding: 4px 10px; border-radius: 50px; font-weight: 800; text-transform: uppercase; }
 
-        /* Dashboard 2-Column Concept */
+        /* Dashboard 2-Column */
         .stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 15px; }
         .stat-card { background: white; padding: 14px; border-radius: var(--radius-md); border: 1px solid var(--border); box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
         .stat-card.full { grid-column: span 2; background: var(--text); color: white; border: none; text-align: center; }
@@ -32,17 +32,18 @@
         .panel { background: var(--surface); border-radius: var(--radius-md); border: 1px solid var(--border); padding: 15px; margin-bottom: 12px; }
         .panel-title { font-size: 0.7rem; font-weight: 800; text-transform: uppercase; color: var(--text-muted); margin-bottom: 15px; display: flex; align-items: center; gap: 8px; }
 
+        /* Goal Achievement Section */
+        .goal-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 10px; }
+        .goal-pct { font-size: 1.8rem; font-weight: 900; line-height: 1; }
+        .goal-est { font-size: 0.6rem; font-weight: 800; color: var(--brand); text-align: right; }
+        .progress-container { height: 12px; background: #f1f5f9; border-radius: 20px; overflow: hidden; border: 1px solid var(--border); }
+        .progress-fill { height: 100%; background: linear-gradient(90deg, var(--success), #34d399); width: 0%; transition: 1s cubic-bezier(0.34, 1.56, 0.64, 1); }
+
         /* Inputs 2-Column */
         .input-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
         .input-group { margin-bottom: 10px; }
         .input-group label { display: block; font-size: 0.6rem; font-weight: 800; margin-bottom: 4px; color: var(--text-muted); text-transform: uppercase; }
         .input-group input { width: 100%; padding: 10px; border-radius: 10px; border: 1px solid var(--border); font-weight: 700; font-size: 0.85rem; background: #fcfdfe; }
-
-        /* Profit Gear Widget */
-        .gear-widget { background: #eff6ff; border: 1px solid #dbeafe; padding: 12px; border-radius: 12px; display: flex; align-items: center; gap: 10px; margin-bottom: 15px; }
-        .gear-widget input { width: 20px; height: 20px; accent-color: var(--brand); }
-        .gear-widget div { line-height: 1.2; }
-        .gear-widget strong { font-size: 0.7rem; display: block; color: var(--brand-dark); }
 
         /* Risk Advisor 2-Column Grid */
         .adv-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
@@ -59,16 +60,7 @@
         td { padding: 12px 10px; border-bottom: 1px solid #f8fafc; vertical-align: middle; }
         .phase-header { background: #f1f5f9; font-size: 0.65rem; font-weight: 900; color: var(--brand); padding: 8px 10px; text-transform: uppercase; border-top: 1px solid var(--border); }
 
-        /* Trades UI */
-        .slot-pill { background: #f8fafc; border: 1px solid var(--border); padding: 5px 8px; border-radius: 8px; display: inline-flex; align-items: center; gap: 6px; margin-right: 4px; margin-bottom: 4px; }
-        select { border: 1px solid var(--border); padding: 4px; font-weight: 800; font-size: 0.7rem; border-radius: 6px; background: white; outline: none; }
-        .badge { font-size: 0.55rem; font-weight: 900; padding: 4px 8px; border-radius: 5px; text-transform: uppercase; }
-        .b-win { background: #dcfce7; color: #15803d; }
-        .b-loss { background: #fee2e2; color: #b91c1c; }
-
-        /* Buttons */
-        .btn-add { background: #eff6ff; color: var(--brand); border: 1px dashed var(--brand); padding: 8px; border-radius: 8px; font-weight: 800; font-size: 0.6rem; cursor: pointer; }
-        .action-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
+        .btn-add { background: #eff6ff; color: var(--brand); border: 1px dashed var(--brand); padding: 8px; border-radius: 8px; font-weight: 800; font-size: 0.6rem; cursor: pointer; margin-top: 5px; }
         .btn { padding: 12px; border: none; border-radius: 12px; font-weight: 800; font-size: 0.75rem; cursor: pointer; text-align: center; color: white; }
         .btn-brand { background: var(--text); }
         .btn-json { background: var(--brand); }
@@ -86,7 +78,7 @@
 
 <div class="container">
     <header class="header">
-        <h1>SNIPER <span style="color:var(--brand)">MOBILE v17</span></h1>
+        <h1>SNIPER <span style="color:var(--brand)">MOBILE v17.1</span></h1>
         <div id="healthBadge">READY</div>
     </header>
 
@@ -99,15 +91,27 @@
     </div>
 
     <section class="panel">
+        <div class="goal-header">
+            <div>
+                <small style="font-weight:800; color:var(--text-muted); text-transform:uppercase; font-size:0.6rem;">Journey Progress</small>
+                <div id="resAchiev" class="goal-pct">0.0%</div>
+            </div>
+            <div class="goal-est">
+                <small>ESTIMATION TIME</small>
+                <p id="resEst">Min. 5 Days Data</p>
+            </div>
+        </div>
+        <div class="progress-container">
+            <div id="goalBar" class="progress-fill"></div>
+        </div>
+    </section>
+
+    <section class="panel">
         <details>
             <summary class="panel-title">⚙️ Risk Architecture (Tap)</summary>
-            <div class="gear-widget" onclick="toggleGear()">
-                <input type="checkbox" id="gear20" checked onclick="event.stopPropagation(); refresh()">
-                <div><strong>20% PIPS GEAR</strong><small id="gearTxt" style="font-size:0.55rem; color:var(--brand); font-weight:700;">ACTIVE: LOCK ENABLED</small></div>
-            </div>
             <div class="input-grid">
                 <div class="input-group"><label>Capital ($)</label><input type="number" id="cfgCap" value="1000" onchange="refresh()"></div>
-                <div class="input-group"><label>Goal ($)</label><input type="number" id="cfgGoal" value="2000" onchange="refresh()"></div>
+                <div class="input-group"><label>Target Goal ($)</label><input type="number" id="cfgGoal" value="2000" onchange="refresh()"></div>
                 <div class="input-group" style="grid-column: span 2;"><label>Trade Lot</label><input type="number" id="cfgLot" value="0.01" step="0.01" onchange="refresh()"></div>
                 <div class="input-group"><label>Target Pips</label><input type="number" id="cfgTP" value="100" onchange="refresh()"></div>
                 <div class="input-group"><label>Risk Pips</label><input type="number" id="cfgSL" value="50" onchange="refresh()"></div>
@@ -187,62 +191,77 @@
 </div>
 
 <script>
-    const KEY = 'sniper_journal_v17_mobile_grid';
+    const KEY = 'sniper_journal_v17_1_mobile_fixed';
     function load() { return JSON.parse(localStorage.getItem(KEY)) || {}; }
 
     function exportJSON() {
-        const payload = { journal: load(), config: { modal: document.getElementById('cfgCap').value, goal: document.getElementById('cfgGoal').value, lot: document.getElementById('cfgLot').value, tp: document.getElementById('cfgTP').value, sl: document.getElementById('cfgSL').value, risk: document.getElementById('cfgRiskPct').value, gear: document.getElementById('gear20').checked } };
-        const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' })); a.download = `Sniper_Mobile_Backup.json`; a.click();
+        const payload = { journal: load(), config: { modal: document.getElementById('cfgCap').value, goal: document.getElementById('cfgGoal').value, lot: document.getElementById('cfgLot').value, tp: document.getElementById('cfgTP').value, sl: document.getElementById('cfgSL').value, risk: document.getElementById('cfgRiskPct').value } };
+        const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+        const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+        a.download = `SniperJournal_Mobile_Fixed.json`; a.click();
     }
 
     function importJSON(input) {
         const reader = new FileReader(); reader.onload = (e) => {
             const data = JSON.parse(e.target.result);
             if (data.journal) localStorage.setItem(KEY, JSON.stringify(data.journal));
-            if (data.config) { document.getElementById('cfgCap').value = data.config.modal; document.getElementById('cfgGoal').value = data.config.goal; document.getElementById('cfgLot').value = data.config.lot; document.getElementById('cfgTP').value = data.config.tp; document.getElementById('cfgSL').value = data.config.sl; document.getElementById('cfgRiskPct').value = data.config.risk; document.getElementById('gear20').checked = data.config.gear; }
-            refresh(); alert("System Restored!");
+            if (data.config) { document.getElementById('cfgCap').value = data.config.modal; document.getElementById('cfgGoal').value = data.config.goal; document.getElementById('cfgLot').value = data.config.lot; document.getElementById('cfgTP').value = data.config.tp; document.getElementById('cfgSL').value = data.config.sl; document.getElementById('cfgRiskPct').value = data.config.risk; }
+            refresh(); alert("Vault Restored!");
         }; reader.readAsText(input.files[0]);
     }
 
-    function toggleGear() { document.getElementById('gear20').checked = !document.getElementById('gear20').checked; refresh(); }
-    function saveAction(day, idx, val) { let data = load(); if (!data[day]) data[day] = []; if (val === 'cancel') { data[day].splice(idx, 1); if (data[day].length === 0) data[day] = ['pending']; } else { data[day][idx] = val; } localStorage.setItem(KEY, JSON.stringify(data)); refresh(); }
-    function addSlot(day) { let data = load(); if (!data[day]) data[day] = ['pending']; if (data[day][data[day].length-1] !== 'pending') { data[day].push('pending'); localStorage.setItem(KEY, JSON.stringify(data)); refresh(); } }
-    function runScanner() { const cap = parseFloat(document.getElementById('cfgCap').value); const sl = parseInt(document.getElementById('cfgSL').value); const getL = (r) => Math.max(0.01, (cap * (r/100)) / (sl * 10)).toFixed(2); document.getElementById('scLotLow').innerText = getL(0.5); document.getElementById('scLotMid').innerText = getL(1.0); document.getElementById('scanRes').style.display = 'block'; }
-    function calibrate(r) { const cap = parseFloat(document.getElementById('cfgCap').value); const sl = parseInt(document.getElementById('cfgSL').value); document.getElementById('cfgLot').value = Math.max(0.01, (cap * (r/100)) / (sl * 10)).toFixed(2); document.getElementById('cfgRiskPct').value = r; refresh(); }
+    function saveAction(day, idx, val) {
+        let data = load(); if (!data[day]) data[day] = [];
+        if (val === 'cancel') { data[day].splice(idx, 1); if (data[day].length === 0) data[day] = ['pending']; }
+        else { data[day][idx] = val; }
+        localStorage.setItem(KEY, JSON.stringify(data)); refresh();
+    }
+
+    function addSlot(day) {
+        let data = load(); if (!data[day]) data[day] = ['pending'];
+        if (data[day][data[day].length-1] !== 'pending') { data[day].push('pending'); localStorage.setItem(KEY, JSON.stringify(data)); refresh(); }
+    }
+
+    function runScanner() {
+        const cap = parseFloat(document.getElementById('cfgCap').value); const sl = parseInt(document.getElementById('cfgSL').value);
+        const getL = (r) => Math.max(0.01, (cap * (r/100)) / (sl * 10)).toFixed(2);
+        document.getElementById('scLotLow').innerText = getL(0.5); document.getElementById('scLotMid').innerText = getL(1.0);
+        document.getElementById('scanRes').style.display = 'block';
+    }
+
+    function calibrate(r) {
+        const cap = parseFloat(document.getElementById('cfgCap').value); const sl = parseInt(document.getElementById('cfgSL').value);
+        document.getElementById('cfgLot').value = Math.max(0.01, (cap * (r/100)) / (sl * 10)).toFixed(2);
+        document.getElementById('cfgRiskPct').value = r; refresh();
+    }
 
     function refresh() {
         const modal = parseFloat(document.getElementById('cfgCap').value) || 0;
+        const goalVal = parseFloat(document.getElementById('cfgGoal').value) || 0;
         const lot = parseFloat(document.getElementById('cfgLot').value) || 0.01;
         const tp = parseInt(document.getElementById('cfgTP').value) || 0;
         const sl = parseInt(document.getElementById('cfgSL').value) || 0;
         const rPct = parseFloat(document.getElementById('cfgRiskPct').value) || 0;
-        const gear = document.getElementById('gear20').checked;
-
-        document.getElementById('gearTxt').innerText = gear ? "ACTIVE: LOCK ENABLED" : "DISABLED";
 
         const pipVal = lot * 10;
-        const win$ = tp * pipVal;
         const lose$ = sl * pipVal;
         const dailyLimit$ = modal * (rPct/100);
 
-        // --- RISK INTELLIGENCE ---
-        const exposurePct = (lose$ / modal) * 100;
+        // Advisor UI
         const idealStandard = lose$ / 0.02;
+        const exposurePct = (lose$ / modal) * 100;
         document.getElementById('advDaily$').innerText = `$${dailyLimit$.toFixed(2)}`;
         document.getElementById('advLoss$').innerText = `$${lose$.toFixed(2)}`;
-        document.getElementById('advLossDesc').innerText = `Exp: ${exposurePct.toFixed(1)}%`;
+        document.getElementById('advLossDesc').innerText = `Exposure: ${exposurePct.toFixed(1)}%`;
         document.getElementById('advIdeal$').innerText = `$${idealStandard.toFixed(2)}`;
-        document.getElementById('advProfit$').innerText = `$${win$.toFixed(2)}`;
+        document.getElementById('advProfit$').innerText = `$${(tp * pipVal).toFixed(2)}`;
         document.getElementById('advResilience').innerText = `${Math.floor(modal/lose$)} Trades`;
 
         const hB = document.getElementById('healthBadge');
         if (exposurePct > 2) { hB.innerText = "High Load"; hB.style.background = "#fee2e2"; hB.style.color = "#b91c1c"; }
         else { hB.innerText = "Healthy"; hB.style.background = "#dcfce7"; hB.style.color = "#15803d"; }
 
-        let capSlots = Math.floor(dailyLimit$ / lose$);
-        if (capSlots < 1) capSlots = 1;
-
-        let totalP = 0, totalPips = 0;
+        let totalP = 0, totalPips = 0, fDays = 0;
         const data = load();
         const tbody = document.getElementById('tableBody');
         tbody.innerHTML = '';
@@ -259,28 +278,35 @@
             let cell = `<div>`;
             dayD.forEach((st, i) => {
                 last = st; if(st !== 'pending') active = true;
-                if(st==='win') { dPi += tp; dPr += win$; }
+                if(st==='win') { dPi += tp; dPr += (tp * pipVal); }
                 else if(st==='lose') { dPi -= sl; dPr -= lose$; dLs += lose$; }
                 cell += `<div class="slot-pill"><small>#${i+1}</small><select onchange="saveAction(${d}, ${i}, this.value)"><option value="pending" ${st==='pending'?'selected':''}>RUN</option><option value="win" ${st==='win'?'selected':''}>WIN</option><option value="lose" ${st==='lose'?'selected' : ''}>LOSE</option><option value="cancel">DEL</option></select></div>`;
             });
+            if(active) fDays++;
             const dayPipsPct = (dPr/modal*100);
-            if(gear && dayPipsPct >= 20) cell += `<span class="badge b-win">🔒 20% LOCK</span>`;
-            else if(last !== 'pending' && dayD.length < capSlots) cell += `<button onclick="addSlot(${d})" class="btn-add">+ SLOT</button>`;
+            if(dayPipsPct >= 20) cell += `<span class="badge b-win">🔒 20% LOCK</span>`;
+            else if(last !== 'pending' && dayD.length < Math.floor(dailyLimit$/lose$)) cell += `<button onclick="addSlot(${d})" class="btn-add">+ SLOT</button>`;
             cell += `</div>`;
 
-            tr.innerHTML = `<td><b>D${d}</b></td><td>${cell}</td><td style="font-weight:800; color:${dPi>=0?'var(--success)':'var(--danger)'}">${dPi}</td><td style="font-weight:800; color:${dPr>=0?'var(--success)':'var(--danger)'}">$${dPr.toFixed(2)}</td><td style="font-weight:800; color:${dayPipsPct>=0?'var(--success)':'var(--danger)'}">${dayPipsPct.toFixed(2)}%</td>`;
+            tr.innerHTML = `<td><b>D${d}</b></td><td>${cell}</td><td>${dPi}</td><td>$${dPr.toFixed(2)}</td><td>${dayPipsPct.toFixed(2)}%</td>`;
             tbody.appendChild(tr);
             totalP += dPr; totalPips += dPi;
         }
 
         const eq = modal + totalP;
+        const ach = Math.max(0, ((eq - modal) / (goalVal - modal)) * 100);
         document.getElementById('resEquity').innerText = `$${eq.toFixed(2)}`;
         document.getElementById('resGrowth').innerText = (totalP/modal*100).toFixed(2) + "%";
-        document.getElementById('resGrowth').style.color = (totalP >= 0) ? 'var(--success)' : 'var(--danger)';
         document.getElementById('resPips').innerText = totalPips;
-        document.getElementById('resSlots').innerText = capSlots + " Slots";
+        document.getElementById('resSlots').innerText = Math.floor(dailyLimit$/lose$) + " Slots";
         document.getElementById('resSurvival').innerText = Math.floor(modal/lose$) + " Trades";
+        document.getElementById('resAchiev').innerText = ach.toFixed(1) + "%";
+        document.getElementById('goalBar').style.width = Math.min(100, ach) + "%";
 
+        if(fDays >= 5) {
+            const avg = totalP / fDays; const rem = goalVal - eq;
+            document.getElementById('resEst').innerText = (rem <= 0) ? "GOAL REACHED!" : ((rem/avg)/5).toFixed(1) + " Weeks Left";
+        }
         document.getElementById('mcOverlay').style.display = (eq < lose$) ? 'flex' : 'none';
     }
 
